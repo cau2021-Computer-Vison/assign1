@@ -16,6 +16,7 @@ using namespace std;
 
 int centcoord[16] = { 16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16 };
 int clickcnt = 0;
+
 Mat CalGredient(Mat ori) {
     Mat res, temp;
     GaussianBlur(ori, ori, Size(3, 3), 0, 0, BORDER_REFLECT);
@@ -104,7 +105,7 @@ void make_cent_coord2(Mat img) {
     }
 }
 
-void connect_img(float arr1[][16],float arr2[][16], float coord[][4], Mat img1,Mat img2) {//(need: 2 imgs, label coord, 2 arr(histogram))
+void connect_img(float arr1[][16],float arr2[][16], int coord[][4], Mat img1,Mat img2) {//(need: 2 imgs, label coord, 2 arr(histogram))
 // cal histogram(need: 2arr(histogram))
     int match[4] = { -1,-1,-1,-1 };
     for (int i = 0; i < 4; i++) {
@@ -168,8 +169,23 @@ int main(){
     make_cent_coord2(second);
     //총 8번
     //Mat testmats = make_test_mat();
-
+    int coord[8][4] = {
+        {0,0,0,0},
+        {0,0,0,0},
+        {0,0,0,0},
+        {0,0,0,0},
+        {0,0,0,0},
+        {0,0,0,0},
+        {0,0,0,0},
+        {0,0,0,0} };
+    for (int i = 0; i < 8; i++) {
+        coord[i][0] = centcoord[2 * i] + 16;
+        coord[i][1] = centcoord[(2 * i) + 1] + 16;
+        coord[i][2] = centcoord[2 * i] - 16;
+        coord[i][3] = centcoord[(2 * i) + 1] - 16;
+    }
     // 예시로 받아온 전의 함수들의 결과
+    /*
     float coord[8][4] = {
         {200,150,240,130},
         {560,55,580,85},
@@ -179,6 +195,7 @@ int main(){
         {70,350,100,380},
         {423,830,475,800},
         {359,220,380,250} };
+    */
     float histo1[4][16]= { 
         {1,2,3,4,5,6,7,85,9,10,11,82,13,14,15,16}, 
         {11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26}, 

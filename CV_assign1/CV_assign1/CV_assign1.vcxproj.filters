@@ -26,5 +26,8 @@
     <Image Include="..\..\..\..\Desktop\박중필\4-1\컴비\1\1st.jpg">
       <Filter>소스 파일</Filter>
     </Image>
+    <Image Include="..\..\..\..\opencvtest\img_result.jpg">
+      <Filter>소스 파일</Filter>
+    </Image>
   </ItemGroup>
 </Project>
